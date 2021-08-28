@@ -19,21 +19,43 @@ struct MainView: View {
         animation: .default)
     private var cards: FetchedResults<Card>
 
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \CardTransaction.timestamp, ascending: false)],
+        animation: .default)
+    private var transactions: FetchedResults<CardTransaction>
+
+    @State private var cardSelectionIndex = 0
+
+    @State private var selectedCardHash = -1
+
     var body: some View {
         NavigationView {
             ScrollView {
 
                 if !cards.isEmpty {
-                    TabView {
-                        ForEach(cards) { card in
+
+                    TabView(selection: $selectedCardHash, content:  {
+
+                        ForEach(cards, id:\.id) { card in
                             CreditCardView(card: card)
                                 .padding(.bottom, 50)
+                                .tag(card.hash)
                         }
-                    }
+                    })
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                    .id(UUID())
+                    .id(cards.count)
                     .frame(height: 280)
                     .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                    .onAppear {
+                        self.selectedCardHash = cards.first?.hash ?? -1
+                    }
+
+
+                    if let firstIndex = cards.firstIndex(where: { $0.hash == selectedCardHash }) {
+                        let card = self.cards[firstIndex]
+                        TransactionsListView(card: card)
+                    }
+
                 } else {
 
                     emptyPromptyMessage
@@ -41,16 +63,14 @@ struct MainView: View {
 
                 Spacer()
                     .fullScreenCover(isPresented: $shouldPresentAddCardForm, onDismiss: nil, content: {
-                        AddCardForm()
+                        AddCardForm(card: nil) { card in
+                            self.selectedCardHash = card.hash
+                        }
                     })
 
             }
             .navigationTitle("Credit Cards")
-            .navigationBarItems(leading: HStack {
-                addItemButton
-                deleteAllButton
-            },
-                                trailing: addCardButton)
+            .navigationBarItems(trailing: addCardButton)
         }
     }
 
