@@ -26,39 +26,34 @@ struct MainView: View {
 
     @State private var cardSelectionIndex = 0
 
+    @State private var selectedCardHash = -1
+
     var body: some View {
         NavigationView {
             ScrollView {
 
                 if !cards.isEmpty {
 
-                    TabView(selection: $cardSelectionIndex,
-                            content:  {
-                                ForEach(0..<cards.count) { i in
-                                    let card = cards[i]
-                                    CreditCardView(card: card)
-                                        .padding(.bottom, 50)
-                                        .tag(i)
-                                }
-                            })
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                        .id(UUID())
-                        .frame(height: 280)
-                        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-
-                    if let selectedCard = cards[cardSelectionIndex] {
-                        Text(selectedCard.name ?? "")
-                        TransactionsListView(card: selectedCard)
+                    TabView(selection: $selectedCardHash, content:  {
+                        ForEach(cards) { card in
+                            CreditCardView(card: card)
+                                .padding(.bottom, 50)
+                                .tag(card.hash)
+                        }
+                    })
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                    .id(UUID())
+                    .frame(height: 280)
+                    .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                    .onAppear {
+                        self.selectedCardHash = cards.first?.hash ?? -1
                     }
 
-//                    TabView {
-//                        ForEach(cards) { card in
-//
-//                        }
-//                    }
 
-
-//                    TransactionsListView()
+                    if let firstIndex = cards.firstIndex(where: { $0.hash == selectedCardHash }) {
+                        let card = self.cards[firstIndex]
+                        TransactionsListView(card: card)
+                    }
 
                 } else {
 
@@ -67,7 +62,9 @@ struct MainView: View {
 
                 Spacer()
                     .fullScreenCover(isPresented: $shouldPresentAddCardForm, onDismiss: nil, content: {
-                        AddCardForm()
+                        AddCardForm(card: nil) { card in
+                            self.selectedCardHash = card.hash
+                        }
                     })
 
             }
