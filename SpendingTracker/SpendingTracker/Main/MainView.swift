@@ -24,23 +24,41 @@ struct MainView: View {
         animation: .default)
     private var transactions: FetchedResults<CardTransaction>
 
+    @State private var cardSelectionIndex = 0
+
     var body: some View {
         NavigationView {
             ScrollView {
 
                 if !cards.isEmpty {
-                    TabView {
-                        ForEach(cards) { card in
-                            CreditCardView(card: card)
-                                .padding(.bottom, 50)
-                        }
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                    .id(UUID())
-                    .frame(height: 280)
-                    .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
 
-                    TransactionsListView()
+                    TabView(selection: $cardSelectionIndex,
+                            content:  {
+                                ForEach(0..<cards.count) { i in
+                                    let card = cards[i]
+                                    CreditCardView(card: card)
+                                        .padding(.bottom, 50)
+                                        .tag(i)
+                                }
+                            })
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                        .id(UUID())
+                        .frame(height: 280)
+                        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+
+                    if let selectedCard = cards[cardSelectionIndex] {
+                        Text(selectedCard.name ?? "")
+                        TransactionsListView(card: selectedCard)
+                    }
+
+//                    TabView {
+//                        ForEach(cards) { card in
+//
+//                        }
+//                    }
+
+
+//                    TransactionsListView()
 
                 } else {
 

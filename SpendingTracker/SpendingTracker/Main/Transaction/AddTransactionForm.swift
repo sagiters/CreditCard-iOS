@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddTransactionForm: View {
 
+    let card: Card
+
     @Environment(\.presentationMode) var presentationMode
 
     @State private var name = ""
@@ -115,6 +117,8 @@ struct AddTransactionForm: View {
             transaction.amount = Float(self.amount) ?? 0
             transaction.photoData = self.photoData
 
+            transaction.card = card 
+
             do {
                 try context.save()
                 presentationMode.wrappedValue.dismiss()
@@ -136,8 +140,19 @@ struct AddTransactionForm: View {
     }
 }
 
+import CoreData
 struct AddTransactionForm_Previews: PreviewProvider {
+
+    static let firstCard: Card? = {
+        let context = PersistenceController.shared.container.viewContext
+        let request: NSFetchRequest<Card> = NSFetchRequest(entityName: "Card")
+        request.sortDescriptors = [.init(key: "timestamp", ascending: false)]
+        return try? context.fetch(request).first
+    }()
+
     static var previews: some View {
-        AddTransactionForm()
+        if let card = firstCard {
+            AddTransactionForm(card: card)
+        }
     }
 }

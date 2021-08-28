@@ -9,14 +9,27 @@ import SwiftUI
 
 struct TransactionsListView: View {
 
+    let card: Card
+
+    init(card: Card) {
+        self.card = card
+
+        fetchRequest = FetchRequest<CardTransaction>(entity: CardTransaction.entity(), sortDescriptors: [
+            .init(key: "timestamp", ascending: false)
+        ], predicate: .init(format: "card == %@", self.card))
+
+    }
+
     @State private var shouldShowAddTransactionForm = false
 
     @Environment(\.managedObjectContext) private var viewContext
 
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \CardTransaction.timestamp, ascending: false)],
-        animation: .default)
-    private var transactions: FetchedResults<CardTransaction>
+    var fetchRequest: FetchRequest<CardTransaction>
+
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \CardTransaction.timestamp, ascending: false)],
+//        animation: .default)
+//    private var transactions: FetchedResults<CardTransaction>
 
     var body: some View {
         VStack {
@@ -34,10 +47,10 @@ struct TransactionsListView: View {
                     .cornerRadius(5)
             })
             .fullScreenCover(isPresented: $shouldShowAddTransactionForm, onDismiss: nil, content: {
-                AddTransactionForm()
+                AddTransactionForm(card: self.card)
             })
 
-            ForEach(transactions) { transaction in
+            ForEach(fetchRequest.wrappedValue) { transaction in
                 CardTransactionView(transaction: transaction)
 
             }
@@ -124,12 +137,24 @@ struct CardTransactionView: View {
     }()
 }
 
+import CoreData
 struct TransactionsListView_Previews: PreviewProvider {
+
+    static let firstCard: Card? = {
+        let context = PersistenceController.shared.container.viewContext
+        let request: NSFetchRequest<Card> = NSFetchRequest(entityName: "Card")
+        request.sortDescriptors = [.init(key: "timestamp", ascending: false)]
+        return try? context.fetch(request).first
+    }()
+
     static var previews: some View {
         let context = PersistenceController.shared.container.viewContext
         ScrollView {
-            TransactionsListView()
-                .environment(\.managedObjectContext, context)
+            if let card = firstCard {
+                TransactionsListView(card: card)
+            }
+
         }
+        .environment(\.managedObjectContext, context)
     }
 }
