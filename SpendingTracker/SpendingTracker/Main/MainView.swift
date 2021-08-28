@@ -35,14 +35,15 @@ struct MainView: View {
                 if !cards.isEmpty {
 
                     TabView(selection: $selectedCardHash, content:  {
-                        ForEach(cards) { card in
+
+                        ForEach(cards, id:\.id) { card in
                             CreditCardView(card: card)
                                 .padding(.bottom, 50)
                                 .tag(card.hash)
                         }
                     })
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                    .id(UUID())
+                    .id(cards.count)
                     .frame(height: 280)
                     .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                     .onAppear {
