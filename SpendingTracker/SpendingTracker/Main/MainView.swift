@@ -31,6 +31,7 @@ struct MainView: View {
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                    .id(UUID())
                     .frame(height: 280)
                     .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 } else {
@@ -168,7 +169,14 @@ struct MainView: View {
 
                 Text(card.number ?? "")
 
-                Text("Credit Limit: $\(card.limit)")
+                HStack {
+                    Text("Credit Limit: $\(card.limit)")
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Text("Valid Thru")
+                        Text("\(String(format: "%02d", card.expMonth))/\(String(card.expYear % 2000))")
+                    }
+                }
 
                 HStack { Spacer() }
             }
