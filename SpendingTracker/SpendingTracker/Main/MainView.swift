@@ -10,7 +10,6 @@ import SwiftUI
 struct MainView: View {
 
     @State private var shouldPresentAddCardForm = false
-    @State private var shouldShowAddTransactionForm = false
 
     // amount of credit card variable
     @Environment(\.managedObjectContext) private var viewContext
@@ -41,64 +40,7 @@ struct MainView: View {
                     .frame(height: 280)
                     .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
 
-                    Text("Get started by adding your first transaction")
-
-                    Button(action: {
-                        shouldShowAddTransactionForm.toggle()
-                    }, label: {
-                        Text("+ Transaction")
-                            .padding(EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14))
-                            .background(Color(.label))
-                            .foregroundColor(Color(.systemBackground))
-                            .font(.headline)
-                            .cornerRadius(5)
-                    })
-                    .fullScreenCover(isPresented: $shouldShowAddTransactionForm, onDismiss: nil, content: {
-                        AddTransactionForm()
-                    })
-
-                    ForEach(transactions) { transaction in
-                        VStack {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(transaction.name ?? "")
-                                        .font(.headline)
-                                    if let date = transaction.timestamp {
-                                        Text(dateFormatter.string(from: date))
-                                    }
-                                }
-                                Spacer()
-
-                                VStack(alignment: .trailing) {
-                                    Button(action: {
-
-                                    }, label: {
-                                        Image(systemName: "ellipsis")
-                                            .font(.system(size: 24))
-                                    })
-                                    .padding(EdgeInsets(top: 6, leading: 8, bottom: 4, trailing: 0))
-
-                                    Text(String(String(format: "$%.2f", transaction.amount)))
-
-
-                                }
-                            }
-
-                            if let photoData = transaction.photoData,
-                               let uiImage = UIImage(data: photoData) {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFill()
-                            }
-                        }
-                        .foregroundColor(Color(.label))
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(5)
-                        .shadow(radius: 5)
-                        .padding()
-
-                    }
+                    TransactionsListView()
 
                 } else {
 
@@ -112,20 +54,9 @@ struct MainView: View {
 
             }
             .navigationTitle("Credit Cards")
-            .navigationBarItems(leading: HStack {
-                addItemButton
-                deleteAllButton
-            },
-                                trailing: addCardButton)
+            .navigationBarItems(trailing: addCardButton)
         }
     }
-
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-        return formatter
-    }()
 
     private var emptyPromptyMessage: some View {
         VStack {
