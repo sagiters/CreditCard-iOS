@@ -16,6 +16,7 @@
 		0446B33426DA1B15007737E6 /* SpendingTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446B33326DA1B15007737E6 /* SpendingTrackerTests.swift */; };
 		0446B33F26DA1B15007737E6 /* SpendingTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446B33E26DA1B15007737E6 /* SpendingTrackerUITests.swift */; };
 		0446B34E26DA1F09007737E6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446B34D26DA1F09007737E6 /* MainView.swift */; };
+		0446B35126DA2C8A007737E6 /* AddCardForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446B35026DA2C8A007737E6 /* AddCardForm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		0446B33E26DA1B15007737E6 /* SpendingTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingTrackerUITests.swift; sourceTree = "<group>"; };
 		0446B34026DA1B15007737E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0446B34D26DA1F09007737E6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0446B35026DA2C8A007737E6 /* AddCardForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardForm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,9 +144,18 @@
 		0446B34C26DA1EFB007737E6 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				0446B34F26DA2C7F007737E6 /* AddCard */,
 				0446B34D26DA1F09007737E6 /* MainView.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		0446B34F26DA2C7F007737E6 /* AddCard */ = {
+			isa = PBXGroup;
+			children = (
+				0446B35026DA2C8A007737E6 /* AddCardForm.swift */,
+			);
+			path = AddCard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0446B32926DA1B14007737E6 /* SpendingTracker.xcdatamodeld in Sources */,
+				0446B35126DA2C8A007737E6 /* AddCardForm.swift in Sources */,
 				0446B32626DA1B14007737E6 /* Persistence.swift in Sources */,
 				0446B31F26DA1B12007737E6 /* ContentView.swift in Sources */,
 				0446B34E26DA1F09007737E6 /* MainView.swift in Sources */,

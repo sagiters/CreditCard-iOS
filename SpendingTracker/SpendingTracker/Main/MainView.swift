@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+
+    @State private var shouldPresentAddCardForm = false
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -21,6 +24,17 @@ struct MainView: View {
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 .frame(height: 280)
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                // hack
+//                .onAppear {
+//                    shouldPresentAddCardForm.toggle()
+//                }
+
+                // bug in iOS 14.0 - 14.5 where you can't present multiple fullScreenCovers
+
+                Spacer()
+                    .fullScreenCover(isPresented: $shouldPresentAddCardForm, onDismiss: nil, content: {
+                        AddCardForm()
+                    })
 
             }
             .navigationTitle("Credit Cards")
@@ -76,7 +90,8 @@ struct MainView: View {
 
     var addCardButton: some View {
         Button(action: {
-
+            // trigger action
+            shouldPresentAddCardForm.toggle()
         }, label: {
             Text("+ Card")
                 .foregroundColor(.white)
