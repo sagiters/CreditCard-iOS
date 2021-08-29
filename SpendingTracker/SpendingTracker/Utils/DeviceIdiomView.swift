@@ -13,12 +13,12 @@ struct DeviceIdiomView: View {
 
     var body: some View {
         if UIDevice.current.userInterfaceIdiom == .phone {
-            Color.red
+            MainView()
         } else {
             if horizontalSizeClass == .compact {
                 Color.blue
             } else {
-                Color.green
+                MainPadDeviceView()
             }
         }
     }
@@ -32,6 +32,7 @@ struct DeviceIdiomView_Previews: PreviewProvider {
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (3rd generation)"))
             .environment(\.horizontalSizeClass, .regular)
 //            .previewInterfaceOrientation(.landscapeLeft)
+            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
 
         DeviceIdiomView()
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (3rd generation)"))
