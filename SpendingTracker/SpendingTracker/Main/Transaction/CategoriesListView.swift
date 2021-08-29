@@ -57,7 +57,9 @@ struct CategoriesListView: View {
                 }
                 .onDelete(perform: { indexSet in
                     indexSet.forEach { i in
-                        viewContext.delete(categories[i])
+                        let category = categories[i]
+                        selectedCategories.remove(category)
+                        viewContext.delete(category)
                     }
                     try? viewContext.save()
                 })

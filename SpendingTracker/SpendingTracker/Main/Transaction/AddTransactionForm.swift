@@ -11,6 +11,28 @@ struct AddTransactionForm: View {
 
     let card: Card
 
+    init(card: Card) {
+        self.card = card
+
+        let context = PersistenceController.shared.container.viewContext
+
+        let request: NSFetchRequest<TransactionCategory> = NSFetchRequest(entityName: "TransactionCategory")
+        request.sortDescriptors = [.init(key: "timestamp", ascending: false)]
+
+        do {
+            let result = try context.fetch(request)
+            if let first = result.first {
+//                selectedCategories.insert(first)
+                self._selectedCategories = .init(initialValue: [first])
+            }
+        } catch {
+            print("Failed to preselect categories:", error)
+        }
+
+//        let request = TransactionCategory.fetchRequest()
+//        request.sorDescriptors = [.init()]
+    }
+
     @Environment(\.presentationMode) var presentationMode
 
     @State private var name = ""
@@ -26,7 +48,7 @@ struct AddTransactionForm: View {
         NavigationView {
             Form {
 
-                Section(header: Text("Information")) {
+                Section(header: Text("Information")) { 
                     TextField("Name", text: $name)
                     TextField("Amount", text: $amount)
                     DatePicker("Date", selection: $date, displayedComponents: .date)
