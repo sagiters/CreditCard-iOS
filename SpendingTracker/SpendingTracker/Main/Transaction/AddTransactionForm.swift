@@ -28,13 +28,16 @@ struct AddTransactionForm: View {
                     TextField("Name", text: $name)
                     TextField("Amount", text: $amount)
                     DatePicker("Date", selection: $date, displayedComponents: .date)
+                }
 
+                Section(header: Text("Categories")) {
                     NavigationLink(
                         destination:
-                            Text("Many")
-                            .navigationTitle("New Title"),
+                            CategoriesListView()
+                            .navigationTitle("Categories")
+                            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext),
                         label: {
-                            Text("Many to many")
+                            Text("Select categories")
                         })
                 }
 
