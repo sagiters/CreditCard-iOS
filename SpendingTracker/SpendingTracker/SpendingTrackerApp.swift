@@ -13,7 +13,8 @@ struct SpendingTrackerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+//            MainView()
+            DeviceIdiomView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
