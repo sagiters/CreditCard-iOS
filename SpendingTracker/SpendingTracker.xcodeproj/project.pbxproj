@@ -20,6 +20,7 @@
 		0446B35126DA2C8A007737E6 /* AddCardForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446B35026DA2C8A007737E6 /* AddCardForm.swift */; };
 		044C560B26DA7D210079C134 /* AddTransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C560A26DA7D210079C134 /* AddTransactionForm.swift */; };
 		044C561126DA8DC10079C134 /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C561026DA8DC10079C134 /* TransactionsListView.swift */; };
+		04666BD326DBA1BD00C1ACAA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04666BD226DBA1BD00C1ACAA /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		0446B35026DA2C8A007737E6 /* AddCardForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardForm.swift; sourceTree = "<group>"; };
 		044C560A26DA7D210079C134 /* AddTransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionForm.swift; sourceTree = "<group>"; };
 		044C561026DA8DC10079C134 /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
+		04666BD226DBA1BD00C1ACAA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		0446B31B26DA1B12007737E6 /* SpendingTracker */ = {
 			isa = PBXGroup;
 			children = (
+				04666BD126DBA1B000C1ACAA /* Utils */,
 				0446B34C26DA1EFB007737E6 /* Main */,
 				0446B31C26DA1B12007737E6 /* SpendingTrackerApp.swift */,
 				0446B31E26DA1B12007737E6 /* ContentView.swift */,
@@ -173,6 +176,14 @@
 				042D6AF326DB6F9000652104 /* CategoriesListView.swift */,
 			);
 			path = Transaction;
+			sourceTree = "<group>";
+		};
+		04666BD126DBA1B000C1ACAA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				04666BD226DBA1BD00C1ACAA /* Color.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +318,7 @@
 				0446B32926DA1B14007737E6 /* SpendingTracker.xcdatamodeld in Sources */,
 				0446B35126DA2C8A007737E6 /* AddCardForm.swift in Sources */,
 				0446B32626DA1B14007737E6 /* Persistence.swift in Sources */,
+				04666BD326DBA1BD00C1ACAA /* Color.swift in Sources */,
 				044C560B26DA7D210079C134 /* AddTransactionForm.swift in Sources */,
 				0446B31F26DA1B12007737E6 /* ContentView.swift in Sources */,
 				042D6AF426DB6F9000652104 /* CategoriesListView.swift in Sources */,

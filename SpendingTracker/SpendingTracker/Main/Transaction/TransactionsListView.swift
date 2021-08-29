@@ -206,6 +206,7 @@ struct CardTransactionView: View {
     let transaction: CardTransaction
 
     @State var shouldPresentActionSheet = false
+    @Environment(\.colorScheme) var colorScheme
 
     private func handleDelete() {
         withAnimation {
@@ -296,7 +297,8 @@ struct CardTransactionView: View {
         }
         .foregroundColor(Color(.label))
         .padding()
-        .background(Color.white)
+//        .background(colorScheme == .dark ? Color.gray : .white)
+        .background(Color.cardTransactionBackground)
         .cornerRadius(5)
         .shadow(radius: 5)
         .padding()
@@ -322,12 +324,15 @@ struct TransactionsListView_Previews: PreviewProvider {
 
     static var previews: some View {
         let context = PersistenceController.shared.container.viewContext
-        ScrollView {
-            if let card = firstCard {
-                TransactionsListView(card: card)
-            }
+        NavigationView {
+            ScrollView {
+                if let card = firstCard {
+                    TransactionsListView(card: card)
+                }
 
+            }
         }
+        .colorScheme(.light)
         .environment(\.managedObjectContext, context)
     }
 }
