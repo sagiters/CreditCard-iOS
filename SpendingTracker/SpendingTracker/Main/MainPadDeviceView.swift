@@ -18,6 +18,8 @@ struct MainPadDeviceView: View {
         animation: .default)
     private var cards: FetchedResults<Card>
 
+    @State var selectedCard: Card?
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -27,11 +29,25 @@ struct MainPadDeviceView: View {
                         ForEach(cards) { card in
                             CreditCardView(card: card)
                                 .frame(width: 350)
+                                .onTapGesture {
+                                    withAnimation {
+                                        self.selectedCard = card
+                                    }
+                                }
+                                .scaleEffect(self.selectedCard == card ? 1.1 : 1.0)
                         }
                     }
+                    .frame(height: 250)
+                    .onAppear {
+                        self.selectedCard = cards.first
+                    }
+                    .padding(.leading)
                 }
 
-                TransactionGrid()
+                if let card = self.selectedCard {
+                    TransactionGrid(card: card)
+                }
+
             }
             .navigationTitle("Money Tracker")
             .navigationBarItems(trailing: addCardButton)
@@ -52,6 +68,24 @@ struct MainPadDeviceView: View {
 }
 
 struct TransactionGrid: View {
+
+    let card: Card
+
+    init(card: Card) {
+        self.card = card
+
+        fetchRequest = FetchRequest<CardTransaction>(entity: CardTransaction.entity(), sortDescriptors: [
+            .init(key: "timestamp", ascending: false)
+        ], predicate: .init(format: "card == %@", self.card))
+
+    }
+
+    @Environment(\.managedObjectContext) private var viewContext
+
+    var fetchRequest: FetchRequest<CardTransaction>
+
+    @State private var shouldShowAddTransactionForm = false
+
     var body: some View {
         VStack {
 
@@ -60,11 +94,14 @@ struct TransactionGrid: View {
                 Spacer()
 
                 Button(action: {
-
+                    shouldShowAddTransactionForm.toggle()
                 }, label: {
                     Text("+ Transaction")
                 })
             }
+            .sheet(isPresented: $shouldShowAddTransactionForm, onDismiss: nil, content: {
+                AddTransactionForm(card: card)
+            })
 
             let columns: [GridItem] = [
                 .init(.fixed(100), spacing: 16, alignment: .leading),
@@ -86,22 +123,52 @@ struct TransactionGrid: View {
                     Image(systemName: "arrow.up.arrow.down")
                     Spacer()
                 }
-//                .background(Color.red)
 
                 HStack {
                     Text("Amount")
                     Image(systemName: "arrow.up.arrow.down")
-//                    Spacer()
                 }
-//                .background(Color.blue)
-
-
             })
             .foregroundColor(Color(.darkGray))
+
+            LazyVGrid(columns: columns, content: {
+                ForEach(fetchRequest.wrappedValue) { transaction in
+                    Group {
+                        if let date = transaction.timestamp {
+                            Text(dateFormatter.string(from: date))
+                        }
+
+                        if let data = transaction.photoData,
+                           let uiImage = UIImage(data: data) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 100)
+                                .cornerRadius(8)
+                        } else {
+                            Text("No photo avaliable")
+                        }
+
+                        HStack {
+                            Text(transaction.name ?? "")
+                            Spacer()
+                        }
+                        Text(String(format: "%.2f", transaction.amount))
+                    }
+                    .multilineTextAlignment(.leading)
+                }
+            })
         }
         .font(.system(size: 24, weight: .semibold))
         .padding()
     }
+
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter
+    }()
 }
 
 struct MainPadDeviceView___Previews: PreviewProvider {
