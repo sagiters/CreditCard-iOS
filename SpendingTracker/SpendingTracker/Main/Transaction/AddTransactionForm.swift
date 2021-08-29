@@ -20,6 +20,8 @@ struct AddTransactionForm: View {
 
     @State private var shouldPresentPhotoPicker = false
 
+    @State private var selectedCategories = Set<TransactionCategory>()
+
     var body: some View {
         NavigationView {
             Form {
@@ -33,12 +35,29 @@ struct AddTransactionForm: View {
                 Section(header: Text("Categories")) {
                     NavigationLink(
                         destination:
-                            CategoriesListView()
+                            CategoriesListView(selectedCategories: $selectedCategories)
                             .navigationTitle("Categories")
                             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext),
                         label: {
                             Text("Select categories")
                         })
+
+                    let sortedByTimestampCategories = Array(selectedCategories).sorted(by: { $0.timestamp?.compare($1.timestamp ?? Date()) == .orderedDescending })
+
+                    ForEach(Array(sortedByTimestampCategories)) { category in
+                        HStack(spacing: 12) {
+                            if let data = category.colorData,
+                               let uiColor = UIColor.color(data: data) {
+                                let color = Color(uiColor)
+
+                                Spacer()
+                                    .frame(width: 30, height: 10)
+                                    .background(color)
+                            }
+                            Text(category.name ?? "")
+                        }
+
+                    }
                 }
 
                 Section(header: Text("Photo/Receipt")) {
