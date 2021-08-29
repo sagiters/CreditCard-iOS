@@ -21,6 +21,8 @@
 		044C560B26DA7D210079C134 /* AddTransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C560A26DA7D210079C134 /* AddTransactionForm.swift */; };
 		044C561126DA8DC10079C134 /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C561026DA8DC10079C134 /* TransactionsListView.swift */; };
 		04666BD326DBA1BD00C1ACAA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04666BD226DBA1BD00C1ACAA /* Color.swift */; };
+		04666BD526DBA67800C1ACAA /* DeviceIdiomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04666BD426DBA67800C1ACAA /* DeviceIdiomView.swift */; };
+		04666BD726DBA9FF00C1ACAA /* MainPadDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04666BD626DBA9FF00C1ACAA /* MainPadDeviceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		044C560A26DA7D210079C134 /* AddTransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionForm.swift; sourceTree = "<group>"; };
 		044C561026DA8DC10079C134 /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
 		04666BD226DBA1BD00C1ACAA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		04666BD426DBA67800C1ACAA /* DeviceIdiomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdiomView.swift; sourceTree = "<group>"; };
+		04666BD626DBA9FF00C1ACAA /* MainPadDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPadDeviceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,7 @@
 				044C560926DA7D030079C134 /* Transaction */,
 				0446B34F26DA2C7F007737E6 /* AddCard */,
 				0446B34D26DA1F09007737E6 /* MainView.swift */,
+				04666BD626DBA9FF00C1ACAA /* MainPadDeviceView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				04666BD226DBA1BD00C1ACAA /* Color.swift */,
+				04666BD426DBA67800C1ACAA /* DeviceIdiomView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -317,12 +323,14 @@
 			files = (
 				0446B32926DA1B14007737E6 /* SpendingTracker.xcdatamodeld in Sources */,
 				0446B35126DA2C8A007737E6 /* AddCardForm.swift in Sources */,
+				04666BD726DBA9FF00C1ACAA /* MainPadDeviceView.swift in Sources */,
 				0446B32626DA1B14007737E6 /* Persistence.swift in Sources */,
 				04666BD326DBA1BD00C1ACAA /* Color.swift in Sources */,
 				044C560B26DA7D210079C134 /* AddTransactionForm.swift in Sources */,
 				0446B31F26DA1B12007737E6 /* ContentView.swift in Sources */,
 				042D6AF426DB6F9000652104 /* CategoriesListView.swift in Sources */,
 				044C561126DA8DC10079C134 /* TransactionsListView.swift in Sources */,
+				04666BD526DBA67800C1ACAA /* DeviceIdiomView.swift in Sources */,
 				0446B34E26DA1F09007737E6 /* MainView.swift in Sources */,
 				0446B31D26DA1B12007737E6 /* SpendingTrackerApp.swift in Sources */,
 			);
