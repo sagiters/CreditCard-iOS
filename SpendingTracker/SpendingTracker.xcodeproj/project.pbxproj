@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042D6AF426DB6F9000652104 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D6AF326DB6F9000652104 /* CategoriesListView.swift */; };
 		0446B31D26DA1B12007737E6 /* SpendingTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446B31C26DA1B12007737E6 /* SpendingTrackerApp.swift */; };
 		0446B31F26DA1B12007737E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446B31E26DA1B12007737E6 /* ContentView.swift */; };
 		0446B32126DA1B14007737E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0446B32026DA1B14007737E6 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		042D6AF326DB6F9000652104 /* CategoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
 		0446B31926DA1B12007737E6 /* SpendingTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpendingTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0446B31C26DA1B12007737E6 /* SpendingTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingTrackerApp.swift; sourceTree = "<group>"; };
 		0446B31E26DA1B12007737E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			children = (
 				044C560A26DA7D210079C134 /* AddTransactionForm.swift */,
 				044C561026DA8DC10079C134 /* TransactionsListView.swift */,
+				042D6AF326DB6F9000652104 /* CategoriesListView.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				0446B32626DA1B14007737E6 /* Persistence.swift in Sources */,
 				044C560B26DA7D210079C134 /* AddTransactionForm.swift in Sources */,
 				0446B31F26DA1B12007737E6 /* ContentView.swift in Sources */,
+				042D6AF426DB6F9000652104 /* CategoriesListView.swift in Sources */,
 				044C561126DA8DC10079C134 /* TransactionsListView.swift in Sources */,
 				0446B34E26DA1F09007737E6 /* MainView.swift in Sources */,
 				0446B31D26DA1B12007737E6 /* SpendingTrackerApp.swift in Sources */,
